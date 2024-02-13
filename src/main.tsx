@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
-import './nav.css'
-import { RouterProvider } from "react-router-dom";
+import './index.scss'
+import './nav.css'import { RouterProvider } from "react-router-dom";
 import { router } from './Router.tsx';
 
 
