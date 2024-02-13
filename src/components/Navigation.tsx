@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 
 export const Navigation = () => {
     return (
-      <nav>
-        <ul>
+      <nav className="navigation">
+        <ul className="nav-ul">
           <li>
             <NavLink to={"/"}>Hem</NavLink>
           </li>
