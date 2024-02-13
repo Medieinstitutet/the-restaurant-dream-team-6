@@ -1,14 +1,14 @@
-import React from "react";
+// import React from "react";
 import { NavLink } from "react-router-dom";
 
 export const Navigation = () => {
     return (
-      <nav>
-        <ul>
+      <nav className="navigation">
+        <ul className="nav-ul">
           <li>
             <NavLink to={"/"}>Hem</NavLink>
           </li>
-          <li>
+          <li className="book-table">
             <NavLink to={"/booking"}>Boka bord</NavLink>
           </li>
           <li>

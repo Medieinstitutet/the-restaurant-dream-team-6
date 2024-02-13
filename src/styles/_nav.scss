@@ -1,0 +1,26 @@
+.navigation {
+    background-color: #023020;
+    margin: 0;
+}
+
+.nav-ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+.nav-ul a {
+    text-decoration: none;
+    color: antiquewhite;
+    font-size: 25px;
+}
+
+.nav-ul a:hover {
+    // color: rgb(137, 201, 137)
+    color: rgb(116, 87, 87)
+}
+
+.book-table {
+    margin-left: 30px;
+}
