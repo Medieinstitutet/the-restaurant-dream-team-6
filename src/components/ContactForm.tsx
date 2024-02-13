@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const ContactForm = () => {
   return (
@@ -14,8 +15,11 @@ export const ContactForm = () => {
           Mejla eller ring oss på: <br /> skog@restaurang.se, 019-123 45 00
         </p>
         <p>Du kan också kontakta oss via vårt formulär.</p>
+        <p>För att boka bord, gå till <Link to="/booking">bokningssidan.</Link></p>
       </div>
+
       <form className="contact-form">
+        <h3>Kontaktformulär</h3>
         <input
           name="name"
           type="text"
