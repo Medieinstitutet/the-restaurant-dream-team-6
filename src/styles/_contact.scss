@@ -1,5 +1,6 @@
-.contact {
+.contact-container {
   display: flex;
+  margin-right: 20px;
 }
 
 .contact-form {
@@ -8,10 +9,11 @@
   display: flex;
   flex-direction: column;
   border-radius: 30px;
-  padding: 20px;
+  padding: 40px;
 }
 
 .contact-info {
+  margin-top: 20px;
   flex: 1;
   height: 50vh;
   display: flex;
@@ -29,12 +31,12 @@ form {
   max-width: 500px;
 }
 .contact-input {
-  color: white;
+  color: antiquewhite;
   font-family: "Old Standard TT", serif;
   font-size: 15px;
   border-radius: 5px;
   background-color: transparent;
-  border: 1px solid #f5f1f1;
+  border: 1px solid antiquewhite;
   padding: 13px;
   margin-bottom: 10px;
   width: 100%;
@@ -52,7 +54,7 @@ textarea {
   width: 100%;
   background: #364f3b;
   border-radius: 5px;
-  border: 1px solid #f5f1f1;
+  border: 1px solid antiquewhite;
   cursor: pointer;
   color: white;
   font-size: 20px;
@@ -65,11 +67,11 @@ textarea {
 }
 
 [type="submit"]:hover {
-  background: #293c2c;
+  background-color: #023020;
 }
 
 @media (max-width: 768px) {
-  .contact {
+  .contact-container {
     display: block;
   }
 }
