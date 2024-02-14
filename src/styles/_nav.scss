@@ -1,12 +1,15 @@
 .navigation {
     background-color: #023020;
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .nav-ul {
     list-style: none;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     padding: 20px;
 }
 
@@ -14,6 +17,7 @@
     text-decoration: none;
     color: antiquewhite;
     font-size: 25px;
+    margin: 40px;
 }
 
 .nav-ul a:hover {
@@ -21,6 +25,6 @@
     color: rgb(116, 87, 87)
 }
 
-.book-table {
+.navigation img {
     margin-left: 30px;
 }
