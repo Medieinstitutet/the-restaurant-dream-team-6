@@ -1,6 +1,6 @@
 
 export interface IBookingdata{
-  id: string;
+  _id: string;
   restaurantId: string;
   date: number;
   time: number;
