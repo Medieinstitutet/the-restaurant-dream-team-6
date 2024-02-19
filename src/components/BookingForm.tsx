@@ -1,150 +1,95 @@
 import React, { useState } from "react";
+import CheckTables from "./CheckTables";
+import CustomerInfo from "./CustomerInfo";
+import Confirmation from "./Confirmation";
 import axios from "axios";
-import DatePicker from "react-datepicker";
-import { registerLocale } from "react-datepicker";
-import sv from "date-fns/locale/sv";
-import "react-datepicker/dist/react-datepicker.css";
 import { restaurantId } from "../services/api";
-import ConfirmedBooking from "./ConfirmedBooking";
-import FailedBooking from "./FailedBooking";
+import { useNavigate } from "react-router-dom";
 
-registerLocale("sv", sv);
+//interface för bokningsdata
+interface BookingInfo {
+	date: string;
+	time: string;
+	numberOfGuests: number;
+	customer?: {
+		name: string;
+		lastname: string;
+		email: string;
+		phone: string;
+	};
+}
 
 const BookingForm: React.FC = () => {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
-	const [phone, setPhone] = useState("");
-	const [numberOfGuests, setNumberOfGuests] = useState(1);
-	const [selectedDate, setSelectedDate] = useState(new Date());
-	const [selectedTime, setSelectedTime] = useState("18:00");
-	const [bookingStatus, setBookingStatus] = useState<string | null>(null);
+	const [bookingInfo, setBookingInfo] = useState<BookingInfo>({
+		date: "",
+		time: "",
+		numberOfGuests: 0,
+	});
+	const [step, setStep] = useState<number>(1);
+	const [errorMessage, setErrorMessage] = useState<string>("");
+	const navigate = useNavigate();
 
-	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
+	//Funktion som hanterar steg 1 formuläret - kolla tillgängligheten
+	const handleStep1Submit = (data: { date: string; time: string; numberOfGuests: number }) => {
+		setBookingInfo(data);
+		setStep(2);
+	};
+	//Funktion som hanterar steg 2 formuläret - customer info
+	const handleStep2Submit = (customerData: any) => {
+		setBookingInfo((prevData) => ({ ...prevData, customer: customerData }));
+		setStep(3);
+	};
 
-		// datum till rätt format YYYY-MM-DD
-		const dateStamp = selectedDate.toISOString().substring(0, 10);
+	const [loading, setLoading] = useState(false);
 
-		const bookingData = {
-			restaurantId,
-			date: dateStamp,
-			time: selectedTime,
-			numberOfGuests,
-			customer: {
-				name: firstName,
-				lastname: lastName,
-				email: email,
-				phone: phone,
-			},
-		};
-
+	//Funktion som hanterar bokningsbekräftelsen
+	const handleConfirmation = async () => {
+		setLoading(true);
 		try {
-			const response = await axios.post("https://school-restaurant-api.azurewebsites.net/booking/create", bookingData, {
-				headers: {
-					Authorization: `Bearer ${restaurantId}`,
-				},
+			// skicka POST requesten till API:et för att skapa bokningen
+			await axios.post("https://school-restaurant-api.azurewebsites.net/booking/create", {
+				restaurantId,
+				date: bookingInfo.date,
+				time: bookingInfo.time,
+				numberOfGuests: bookingInfo.numberOfGuests,
+				customer: bookingInfo.customer,
 			});
 
-			setBookingStatus("successful");
-
-			setFirstName("");
-			setLastName("");
-			setEmail("");
-			setPhone("");
-			setNumberOfGuests(1);
-			setSelectedDate(new Date());
-			setSelectedTime("18:00");
+			// om bokningen lyckas, gå vidare till steg 4
+			setStep(4);
 		} catch (error) {
-			setBookingStatus("failed");
-			console.error(error);
+			console.error("Fel vid skapandet av bokning:", error);
+			setErrorMessage("Något gick fel vid bokning. Försök igen senare eller ring oss för att få hjälp.");
+		} finally {
+			setLoading(false);
 		}
 	};
 
+	//Rendera varje steg i bokningen
 	return (
-		<>
-			<form
-				className="form"
-				onSubmit={handleSubmit}
-			>
-				<label htmlFor="firstName">Förnamn:</label>
-				<input
-					type="text"
-					id="firstName"
-					value={firstName}
-					onChange={(e) => setFirstName(e.target.value)}
+		<div>
+			{errorMessage && <p>{errorMessage}</p>}
+			{loading && <p>Laddar..</p>}
+			{step === 1 && <CheckTables onSubmit={handleStep1Submit} />}
+			{step === 2 && (
+				<CustomerInfo
+					onSubmit={handleStep2Submit}
+					onConfirm={handleConfirmation}
+					bookingInfo={bookingInfo}
 				/>
-
-				<label htmlFor="lastName">Efternamn:</label>
-				<input
-					type="text"
-					id="lastName"
-					value={lastName}
-					onChange={(e) => setLastName(e.target.value)}
+			)}
+			{step === 3 && (
+				<Confirmation
+					onConfirm={handleConfirmation}
+					navigate={navigate}
+					customerData={{
+						name: bookingInfo.customer?.name || "",
+						time: bookingInfo.time,
+						date: bookingInfo.date,
+					}}
 				/>
-
-				<label htmlFor="email">E-post:</label>
-				<input
-					type="email"
-					id="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-				/>
-
-				<label htmlFor="phone">Telefonnummer:</label>
-				<input
-					type="tel"
-					id="phone"
-					value={phone}
-					onChange={(e) => setPhone(e.target.value)}
-				/>
-
-				<label htmlFor="numberOfGuests">Antal i sällskapet:</label>
-				<select
-					id="numberOfGuests"
-					value={numberOfGuests}
-					onChange={(e) => setNumberOfGuests(parseInt(e.target.value))}
-				>
-					{[1, 2, 3, 4, 5, 6].map((number) => (
-						<option
-							key={number}
-							value={number}
-						>
-							{number}
-						</option>
-					))}
-				</select>
-
-				<label htmlFor="date">Datum:</label>
-				<DatePicker
-					id="date"
-					className="datepicker"
-					dateFormat="yyyy-MM-dd"
-					selected={selectedDate}
-					onChange={(date: Date | null) => setSelectedDate(date ? date : new Date())}
-					locale="sv"
-				/>
-
-				<label htmlFor="time">Tid:</label>
-				<select
-					id="time"
-					value={selectedTime}
-					onChange={(e) => setSelectedTime(e.target.value)}
-				>
-					<option value="18:00">18:00</option>
-					<option value="21:00">21:00</option>
-				</select>
-
-				<button
-					className="bookBtn"
-					type="submit"
-				>
-					Boka bord
-				</button>
-			</form>
-			{bookingStatus === "successful" && <ConfirmedBooking />}
-			{bookingStatus === "failed" && <FailedBooking />}
-		</>
+			)}
+		</div>
 	);
 };
 
