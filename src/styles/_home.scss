@@ -1,51 +1,57 @@
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // background: linear-gradient(rgba(255, 255, 255, 0.307), rgba(255, 255, 255, 0.049));
+  // background: linear-gradient(rgba(7, 58, 7, 0.222), rgba(7, 58, 7, 0.058));
+}
+
 .home-header {
-    position: relative;
-    margin-bottom: 20px;
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .restaurantpic {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    object-position: 35% 65%;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: 35% 65%;
 }
 
 .home-header h1 {
-    position: absolute;
-    font-size: 100px;
-    font-family: fantasy;
-    color: antiquewhite;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  font-size: 100px;
+  font-family: fantasy;
+  color: antiquewhite;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    // background: linear-gradient(rgba(255, 255, 255, 0.307), rgba(255, 255, 255, 0.049)); 
-    background: linear-gradient(rgba(7, 58, 7, 0.222), rgba(7, 58, 7, 0.058));
-  }
+.text {
+  font-size: 20px;
+  background-color: rgba(116, 87, 87, 0.438);
+  border-radius: 10px;
+  text-align: center;
+  max-width: 850px;
+  margin: auto;
+  padding: 15px;
+  transition: background-color 0.5s ease-out;
+}
 
+.text:hover {
+  background-color: rgba(116, 87, 87, 0.828);
+  transition-delay: 0.5s;
+}
+
+.text h2 {
+  font-family: fantasy;
+}
+
+@media (max-width: 768px) {
   .text {
-    font-size: 20px;
-    background-color: rgba(116, 87, 87, 0.438);
-    border-radius: 10px;
-    text-align: center;
-    max-width: 800px;
-    margin: auto;
-    padding: 15px;
-    transition: background-color 0.5s ease-out;
+    width: 75%;
   }
-
-  .text:hover {
-    background-color: rgba(116, 87, 87, 0.828);
-    transition-delay: 0.5s;
-  }
-
-  .text h2 {
-    font-family: fantasy;
-  }
+}

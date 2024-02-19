@@ -1,30 +1,115 @@
+
 .navigation {
-    background-color: #023020;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  background-color: #023020;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.open {
+    display: none;
 }
 
 .nav-ul {
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
 }
 
 .nav-ul a {
-    text-decoration: none;
-    color: antiquewhite;
-    font-size: 25px;
-    margin: 40px;
+  text-decoration: none;
+  color: antiquewhite;
+  font-size: 25px;
+  margin: 40px;
 }
 
 .nav-ul a:hover {
-    // color: rgb(137, 201, 137)
-    color: rgb(116, 87, 87)
+  // color: rgb(137, 201, 137)
+  color: rgb(116, 87, 87);
 }
 
 .navigation img {
-    margin-left: 30px;
+  margin-left: 30px;
 }
+
+
+.overlay {
+   
+  height: 100%;
+  width: 0;
+  position: fixed; 
+  z-index: 1;
+  left: 0;
+  top: 0;
+  overflow-x: hidden; 
+  transition: 0.5s;
+}
+
+    .overlay-content {
+    position: relative;
+    top: 11.6%;
+    left: 0;
+    width: 100%;
+    text-align:center;
+    background-color: #023020;
+    
+    }
+
+
+    .overlay a {
+    padding: 5px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #c6cac4;
+    display: block; 
+    transition: 0.3s; 
+    }
+
+
+    .overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+    }
+
+    .overlay .closebtn {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    font-size: 40px;
+    }
+
+    .menu {
+        width: 40px;
+    }
+
+
+@media (max-width: 768px) {
+
+    .navigation {
+        height: 12dvh;
+    }
+  .nav-ul {
+    display: none;
+  }
+   .open
+    {
+    display: block;
+    padding: 10px;
+   }
+
+   .active {
+    display: none;
+   }
+
+    @media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+    }
+
+}
+
