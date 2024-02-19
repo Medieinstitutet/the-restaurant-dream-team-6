@@ -6,12 +6,12 @@ import axios from "axios";
 import { restaurantId } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
-//interface för bokningsdata
+// interface för bokningsdata
 interface BookingInfo {
 	date: string;
 	time: string;
 	numberOfGuests: number;
-	customer?: {
+	customer: {
 		name: string;
 		lastname: string;
 		email: string;
@@ -24,6 +24,12 @@ const BookingForm: React.FC = () => {
 		date: "",
 		time: "",
 		numberOfGuests: 0,
+		customer: {
+			name: "",
+			lastname: "",
+			email: "",
+			phone: "",
+		},
 	});
 	const [step, setStep] = useState<number>(1);
 	const [errorMessage, setErrorMessage] = useState<string>("");
@@ -31,11 +37,12 @@ const BookingForm: React.FC = () => {
 
 	//Funktion som hanterar steg 1 formuläret - kolla tillgängligheten
 	const handleStep1Submit = (data: { date: string; time: string; numberOfGuests: number }) => {
-		setBookingInfo(data);
+		setBookingInfo((prevData) => ({ ...prevData, ...data }));
 		setStep(2);
 	};
-	//Funktion som hanterar steg 2 formuläret - customer info
-	const handleStep2Submit = (customerData: any) => {
+
+	//Funktioner som hanterar steg 2 formuläret - customer info
+	const handleStep2Submit = (customerData: { name: string; lastname: string; email: string; phone: string }) => {
 		setBookingInfo((prevData) => ({ ...prevData, customer: customerData }));
 		setStep(3);
 	};
@@ -83,7 +90,7 @@ const BookingForm: React.FC = () => {
 					onConfirm={handleConfirmation}
 					navigate={navigate}
 					customerData={{
-						name: bookingInfo.customer?.name || "",
+						name: bookingInfo.customer.name,
 						time: bookingInfo.time,
 						date: bookingInfo.date,
 					}}
