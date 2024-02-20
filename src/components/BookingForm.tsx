@@ -32,6 +32,8 @@ const BookingForm: React.FC = () => {
 	});
 	const [step, setStep] = useState<number>(1);
 	const [errorMessage, setErrorMessage] = useState<string>("");
+	const [loading, setLoading] = useState(false);
+	const [isBookingConfirmed, setIsBookingConfirmed] = useState(false);
 
 	//Funktion som hanterar steg 1 formuläret - kolla tillgängligheten
 	const handleStep1Submit = (data: { date: string; time: string; numberOfGuests: number }) => {
@@ -45,13 +47,16 @@ const BookingForm: React.FC = () => {
 		setStep(3);
 	};
 
-	const [loading, setLoading] = useState(false);
-
 	//Funktion som hanterar bokningsbekräftelsen
 	const handleConfirmation = async () => {
+		// validera användarens information innan bokningen skapas
+		if (!bookingInfo.customer.name || !bookingInfo.customer.lastname || !bookingInfo.customer.email || !bookingInfo.customer.phone) {
+			setErrorMessage("Samtliga fält är obligatoriska och måste vara korrekt ifyllda.");
+			return;
+		}
+
 		setLoading(true);
 		try {
-			// skicka POST requesten till API:et för att skapa bokningen
 			await axios.post("https://school-restaurant-api.azurewebsites.net/booking/create", {
 				restaurantId,
 				date: bookingInfo.date,
@@ -60,10 +65,9 @@ const BookingForm: React.FC = () => {
 				customer: bookingInfo.customer,
 			});
 
-			console.log("Bokning skapad, går vidare till steg 4"); //felsökning av koden
-
-			// om bokningen lyckas, gå vidare till steg 4
-			setStep(4);
+			// om bokningen lyckas, gå vidare till bokningsbekräftelsen
+			setIsBookingConfirmed(true);
+			setStep(3);
 		} catch (error) {
 			console.error("Fel vid skapandet av bokning:", error);
 			setErrorMessage("Något gick fel vid bokning. Försök igen senare eller ring oss för att få hjälp.");
@@ -85,7 +89,7 @@ const BookingForm: React.FC = () => {
 					bookingInfo={bookingInfo}
 				/>
 			)}
-			{step === 3 && (
+			{isBookingConfirmed && (
 				<Confirmation
 					customerData={{
 						name: bookingInfo.customer.name,
