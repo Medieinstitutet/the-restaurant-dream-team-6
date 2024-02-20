@@ -4,6 +4,7 @@ import CustomerInfo from "./CustomerInfo";
 import Confirmation from "./Confirmation";
 import axios from "axios";
 import { restaurantId } from "../services/api";
+import "../styles/_bookingform.scss";
 
 //interface för bokningsdata
 interface BookingInfo {
@@ -49,7 +50,7 @@ const BookingForm: React.FC = () => {
 			return;
 		}
 
-		// lägg ihop användarens information med bokningsinformationen
+		//lägg ihop användarens information med bokningsinformationen
 		setBookingInfo((prevData) => ({
 			...prevData,
 			customer: {
@@ -85,9 +86,9 @@ const BookingForm: React.FC = () => {
 
 	//Rendera varje steg i bokningen
 	return (
-		<div>
+		<div className="bookingForm">
 			{errorMessage && <p>{errorMessage}</p>}
-			{loading && <p>Laddar..</p>}
+			{loading && <span className="loader"></span>}
 			{step === 1 && <CheckTables onSubmit={handleStep1Submit} />}
 			{step === 2 && (
 				<CustomerInfo
