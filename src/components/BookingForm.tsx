@@ -49,7 +49,14 @@ const BookingForm: React.FC = () => {
 			return;
 		}
 
-		setBookingInfo((prevData) => ({ ...prevData, customer: customerData }));
+		// lägg ihop användarens information med bokningsinformationen
+		setBookingInfo((prevData) => ({
+			...prevData,
+			customer: {
+				...prevData.customer,
+				...customerData,
+			},
+		}));
 		setStep(3);
 	};
 
@@ -70,7 +77,7 @@ const BookingForm: React.FC = () => {
 			setStep(3);
 		} catch (error) {
 			console.error("Fel vid skapandet av bokning:", error);
-			setErrorMessage("Något gick fel vid bokning. Försök igen senare eller ring oss för att få hjälp.");
+			setErrorMessage("Något gick fel vid bokning. Försök  igen senare eller ring oss för att få hjälp.");
 		} finally {
 			setLoading(false);
 		}
