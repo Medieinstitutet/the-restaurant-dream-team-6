@@ -4,7 +4,6 @@ import CustomerInfo from "./CustomerInfo";
 import Confirmation from "./Confirmation";
 import axios from "axios";
 import { restaurantId } from "../services/api";
-import { useNavigate } from "react-router-dom";
 
 // interface för bokningsdata
 interface BookingInfo {
@@ -33,7 +32,6 @@ const BookingForm: React.FC = () => {
 	});
 	const [step, setStep] = useState<number>(1);
 	const [errorMessage, setErrorMessage] = useState<string>("");
-	const navigate = useNavigate();
 
 	//Funktion som hanterar steg 1 formuläret - kolla tillgängligheten
 	const handleStep1Submit = (data: { date: string; time: string; numberOfGuests: number }) => {
@@ -62,6 +60,8 @@ const BookingForm: React.FC = () => {
 				customer: bookingInfo.customer,
 			});
 
+			console.log("Bokning skapad, går vidare till steg 4"); //felsökning av koden
+
 			// om bokningen lyckas, gå vidare till steg 4
 			setStep(4);
 		} catch (error) {
@@ -87,8 +87,6 @@ const BookingForm: React.FC = () => {
 			)}
 			{step === 3 && (
 				<Confirmation
-					onConfirm={handleConfirmation}
-					navigate={navigate}
 					customerData={{
 						name: bookingInfo.customer.name,
 						time: bookingInfo.time,
