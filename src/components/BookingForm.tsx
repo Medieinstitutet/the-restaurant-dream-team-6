@@ -5,7 +5,7 @@ import Confirmation from "./Confirmation";
 import axios from "axios";
 import { restaurantId } from "../services/api";
 
-// interface för bokningsdata
+//interface för bokningsdata
 interface BookingInfo {
 	date: string;
 	time: string;
@@ -35,7 +35,7 @@ const BookingForm: React.FC = () => {
 	const [loading, setLoading] = useState(false);
 	const [isBookingConfirmed, setIsBookingConfirmed] = useState(false);
 
-	//Funktion som hanterar steg 1 formuläret - kolla tillgängligheten
+	//Funktion som hanterar steg  1 formuläret - kolla tillgängligheten
 	const handleStep1Submit = (data: { date: string; time: string; numberOfGuests: number }) => {
 		setBookingInfo((prevData) => ({ ...prevData, ...data }));
 		setStep(2);
@@ -43,18 +43,18 @@ const BookingForm: React.FC = () => {
 
 	//Funktioner som hanterar steg 2 formuläret - customer info
 	const handleStep2Submit = (customerData: { name: string; lastname: string; email: string; phone: string }) => {
+		// validera användarens information innan bokningen skapas
+		if (!customerData.name || !customerData.lastname || !customerData.email || !customerData.phone) {
+			setErrorMessage("Samtliga fält är obligatoriska och måste vara korrekt ifyllda.");
+			return;
+		}
+
 		setBookingInfo((prevData) => ({ ...prevData, customer: customerData }));
 		setStep(3);
 	};
 
 	//Funktion som hanterar bokningsbekräftelsen
 	const handleConfirmation = async () => {
-		// validera användarens information innan bokningen skapas
-		if (!bookingInfo.customer.name || !bookingInfo.customer.lastname || !bookingInfo.customer.email || !bookingInfo.customer.phone) {
-			setErrorMessage("Samtliga fält är obligatoriska och måste vara korrekt ifyllda.");
-			return;
-		}
-
 		setLoading(true);
 		try {
 			await axios.post("https://school-restaurant-api.azurewebsites.net/booking/create", {
