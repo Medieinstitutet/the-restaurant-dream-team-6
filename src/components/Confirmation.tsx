@@ -1,10 +1,7 @@
 import React from "react";
-import { NavigateFunction } from "react-router-dom";
 
 //interface för props till bokningsbekräftelse
 interface ConfirmationProps {
-	onConfirm: () => Promise<void>;
-	navigate: NavigateFunction;
 	customerData: {
 		name: string;
 		time: string;

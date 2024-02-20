@@ -16,14 +16,21 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ onSubmit, onConfirm }) => {
 	const [gdprApproved, setGdprApproved] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 
+	// Validera e-post och telefonnummer med Regex
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	const phoneRegex = /^[0-9-+\s]*$/;
+
+	const validFields = () => {
+		return name && lastname && email && emailRegex.test(email) && phone && phoneRegex.test(phone) && gdprApproved;
+	};
+
 	const handleConfirmBooking = async () => {
 		// Validering av formuläret innan bokningen skapas
-		if (name && lastname && email && phone && gdprApproved) {
+		if (validFields()) {
 			onSubmit({ name, lastname, email, phone, gdprApproved });
-
-			await onConfirm();
+			onConfirm();
 		} else {
-			setErrorMessage("Alla fält måste fyllas i och GDPR godkännas för att bokningen ska kunna slutföras.");
+			setErrorMessage("Samtliga fält är obligatoriska och måste vara korrekt ifyllda.");
 		}
 	};
 
@@ -49,6 +56,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ onSubmit, onConfirm }) => {
 				type="email"
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
+				placeholder="exempel@domän.se"
 				required
 			/>
 			<label>Telefonnummer: </label>
@@ -56,6 +64,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ onSubmit, onConfirm }) => {
 				type="tel"
 				value={phone}
 				onChange={(e) => setPhone(e.target.value)}
+				placeholder="070-123 45 67"
 				required
 			/>
 			<label>
