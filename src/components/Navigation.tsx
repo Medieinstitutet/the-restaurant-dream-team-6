@@ -35,6 +35,7 @@ export const Navigation = () => {
                 <NavLink to={"/"}>Hem</NavLink>
                 <NavLink to={"/booking"}>Boka bord</NavLink>
                 <NavLink to={"/contact"}>Kontakt</NavLink>
+                <NavLink to={"/menu"}>Meny</NavLink>
               </div>
             </div>
           )}
@@ -56,6 +57,9 @@ export const Navigation = () => {
             </li>
             <li>
               <NavLink to={"/contact"}>Kontakt</NavLink>
+            </li>
+            <li>
+              <NavLink to={"/menu"}>Meny</NavLink>
             </li>
           </ul>
           <MobileNavigation/>

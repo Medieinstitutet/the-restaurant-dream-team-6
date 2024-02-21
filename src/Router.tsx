@@ -5,6 +5,7 @@ import { Layout } from "./pages/Layout";
 import { Booking } from "./pages/Booking";
 import { Contact } from "./pages/Contact";
 import { Admin } from "./pages/Admin";
+import { Menu } from "./pages/Menu";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
       },
+      {
+        path: "/menu",
+        element: <Menu />,
+      }
     ],
   },
   { path: "/admin", 

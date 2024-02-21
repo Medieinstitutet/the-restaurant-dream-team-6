@@ -1,5 +1,6 @@
 import tables from "../img/tables.png"
 import chef from "../img/chef.jpg"
+import { NavLink } from "react-router-dom"
 
 export const StartPage = () => {
 
@@ -7,7 +8,9 @@ export const StartPage = () => {
     <section className="home-split">
     <div className="home-menu">
         <h2>Se vår meny här</h2>
+        <NavLink to= {"/menu"}>
         <button className="home-btn">Meny</button>
+        </NavLink>
         <div className="img-container">
         <img src={chef} alt="A chef cooking" />
         </div>
