@@ -131,93 +131,95 @@ export const BookingList = () => {
 
     return (
       <>
-        <h1>Bokningar</h1>
-        {isLoading && <span className="loader"></span>}{" "}
-        {/* Display loading indicator */}
-        <div className="booking-container">
-          {bookings.map((booking, index) => (
-            <div className="booking-details" key={booking._id}>
-              <label htmlFor="date">Datum: </label>
-              <input
-                className="input-date"
-                type="date"
-                id="date"
-                name="date"
-                disabled={!updatedFormId || updatedFormId !== booking._id}
-                value={editedBookings[booking._id]?.date || booking.date}
-                onChange={(e) => handleInputChange(e, "date", booking._id)}
-              />
-              <label htmlFor="time">Tid: </label>
-              <select
-                className="select"
-                id="time"
-                name="time"
-                disabled={!updatedFormId || updatedFormId !== booking._id}
-                value={editedBookings[booking._id]?.time || booking.time}
-                onChange={(e) => handleInputChange(e, "time", booking._id)}
-              >
-                <option value="18:00">18:00</option>
-                <option value="21:00">21:00</option>
-              </select>
-              <br />
-              <label className="guest-label" htmlFor="guests">
-                Antal Gäster:{" "}
-              </label>
-              <input
-                className="input-guests"
-                type="number"
-                id="guests"
-                name="numberOfGuests"
-                disabled={!updatedFormId || updatedFormId !== booking._id}
-                value={
-                  editedBookings[booking._id]?.numberOfGuests ||
-                  booking.numberOfGuests
-                }
-                onChange={(e) =>
-                  handleInputChange(e, "numberOfGuests", booking._id)
-                }
-              />
+        <div className="wrapper">
+          <h1>Bokningar</h1>
+          {isLoading && <span className="loader"></span>}{" "}
+          {/* Display loading indicator */}
+          <div className="booking-container">
+            {bookings.map((booking, index) => (
+              <div className="booking-details" key={booking._id}>
+                <label htmlFor="date">Datum: </label>
+                <input
+                  className="input-date"
+                  type="date"
+                  id="date"
+                  name="date"
+                  disabled={!updatedFormId || updatedFormId !== booking._id}
+                  value={editedBookings[booking._id]?.date || booking.date}
+                  onChange={(e) => handleInputChange(e, "date", booking._id)}
+                />
+                <label htmlFor="time">Tid: </label>
+                <select
+                  className="select"
+                  id="time"
+                  name="time"
+                  disabled={!updatedFormId || updatedFormId !== booking._id}
+                  value={editedBookings[booking._id]?.time || booking.time}
+                  onChange={(e) => handleInputChange(e, "time", booking._id)}
+                >
+                  <option value="18:00">18:00</option>
+                  <option value="21:00">21:00</option>
+                </select>
+                <br />
+                <label className="guest-label" htmlFor="guests">
+                  Antal Gäster:{" "}
+                </label>
+                <input
+                  className="input-guests"
+                  type="number"
+                  id="guests"
+                  name="numberOfGuests"
+                  disabled={!updatedFormId || updatedFormId !== booking._id}
+                  value={
+                    editedBookings[booking._id]?.numberOfGuests ||
+                    booking.numberOfGuests
+                  }
+                  onChange={(e) =>
+                    handleInputChange(e, "numberOfGuests", booking._id)
+                  }
+                />
 
-              {customerDetails[index] ? (
-                <div className="customer-details">
-                  <h4>Bokat av:</h4>
-                  <p>
-                    <b>Namn: </b>
-                    {customerDetails[index].name}
-                    {customerDetails[index].lastname} <br /> <b>Email: </b>
-                    {customerDetails[index].email} <br />
-                    <b>Telefon: </b>
-                    {customerDetails[index].phone}
-                  </p>
-                  <div className="buttons">
-                    {!updatedFormId || updatedFormId !== booking._id ? (
+                {customerDetails[index] ? (
+                  <div className="customer-details">
+                    <h4>Bokat av:</h4>
+                    <p>
+                      <b>Namn: </b>
+                      {customerDetails[index].name}
+                      {customerDetails[index].lastname} <br /> <b>Email: </b>
+                      {customerDetails[index].email} <br />
+                      <b>Telefon: </b>
+                      {customerDetails[index].phone}
+                    </p>
+                    <div className="buttons">
+                      {!updatedFormId || updatedFormId !== booking._id ? (
+                        <button
+                          className="update-button"
+                          onClick={() => handleEditClick(booking._id)}
+                        >
+                          Ändra
+                        </button>
+                      ) : (
+                        <button
+                          className="update-button"
+                          onClick={() => handleSaveClick(booking._id)}
+                        >
+                          Spara
+                        </button>
+                      )}
                       <button
-                        className="update-button"
-                        onClick={() => handleEditClick(booking._id)}
+                        className="delete-button"
+                        onClick={() => handleDeleteBooking(booking._id)}
                       >
-                        Ändra
+                        Ta bort
                       </button>
-                    ) : (
-                      <button
-                        className="update-button"
-                        onClick={() => handleSaveClick(booking._id)}
-                      >
-                        Spara
-                      </button>
-                    )}
-                    <button
-                      className="delete-button"
-                      onClick={() => handleDeleteBooking(booking._id)}
-                    >
-                      Ta bort
-                    </button>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
+                ) : (
+                  ""
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </>
     );

@@ -1,3 +1,4 @@
+
 h1 {
     margin-top: 30px;
 }
@@ -30,11 +31,11 @@ h1 {
 
 .booking-details {
     margin: 10px;
-    color: #2a3b2a;
-    background-color: antiquewhite;
+    color: antiquewhite;
+    background-color:#2a3b2a;
     flex-basis: 33%;
-    min-width: 250px;
-    border: 2px solid antiquewhite;
+    min-width: 270px;
+    border: 2px solid antiquewhite ;
     border-radius: 5px;
     padding: 20px;
 }
@@ -57,22 +58,31 @@ h1 {
 }
 
 
-.input-date, .input-guests, .select, option{
+.input-date, .input-guests, .select{
     color:#2a3b2a;
     font-size: 20px;
     margin-right: auto;
     margin-left: auto;
     border-radius: 5px;
     font-family: "Old Standard TT", serif;
-    background-color: white;
+    background-color: antiquewhite;
 
     &:disabled{
         font-weight: bold;
-        color:#2a3b2a;
+        color: antiquewhite;
         border: none;
-        background-color: antiquewhite;
+        background-color:#2a3b2a;
     }
 
+}
+
+
+.input-date, .input-guests {
+    height: 5px;
+}
+
+.select {
+    height: 28px;
 }
 
 .loader {
