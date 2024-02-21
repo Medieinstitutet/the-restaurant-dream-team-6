@@ -184,8 +184,8 @@ export const BookingList = () => {
                     <h4>Bokat av:</h4>
                     <p>
                       <b>Namn: </b>
-                      {customerDetails[index].name}
-                      {customerDetails[index].lastname} <br /> <b>Email: </b>
+                      {customerDetails[index].name} {customerDetails[index].lastname} <br /> 
+                      <b>Email: </b>
                       {customerDetails[index].email} <br />
                       <b>Telefon: </b>
                       {customerDetails[index].phone}
