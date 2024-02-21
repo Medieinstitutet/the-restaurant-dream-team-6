@@ -13,7 +13,7 @@ interface CheckTablesProps {
 	onSubmit: (data: { date: string; time: string; numberOfGuests: number }) => void;
 }
 
-//CheckTables-komponenten som kollar tillgängligheten
+//Funktionen som kollar tillgängligheten
 const CheckTables: React.FC<CheckTablesProps> = ({ onSubmit }) => {
 	const [date, setDate] = useState(new Date());
 	const [time, setTime] = useState("");
@@ -63,7 +63,7 @@ const CheckTables: React.FC<CheckTablesProps> = ({ onSubmit }) => {
 
 	const formattedDate = format(date, "yyyy-MM-dd");
 
-	//Renderar formuläret för att låta användaren kolla tillgängligheten
+	//Renderar formuläret för att kolla tillgängliga tider
 	return (
 		<div className="booking">
 			{isLoading ? (
@@ -84,7 +84,7 @@ const CheckTables: React.FC<CheckTablesProps> = ({ onSubmit }) => {
 						value={numberOfGuests}
 						onChange={(e) => setNumberOfGuests(parseInt(e.target.value))}
 					/>
-					<button onClick={handleCheckAvailability}>Kolla tillgänglighet</button>
+					<button onClick={handleCheckAvailability}>Kolla tillgängliga tider</button>
 					{errorMessage && <p>{errorMessage}</p>}
 					{availableTimes.length > 0 ? (
 						<>

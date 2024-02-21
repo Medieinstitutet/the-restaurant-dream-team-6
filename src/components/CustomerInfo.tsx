@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BookingInfo } from "../types";
 import "../styles/_customerinfo.scss";
 
-//interface props för användarens information
+//interface för kundinformation
 interface CustomerInfoProps {
 	onSubmit: (customerData: { name: string; lastname: string; email: string; phone: string; gdprApproved: boolean }) => void;
 	onConfirm: () => void;
@@ -25,8 +25,8 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ onSubmit, onConfirm }) => {
 		return name && lastname && email && emailRegex.test(email) && phone && phoneRegex.test(phone) && gdprApproved;
 	};
 
+	//Validerar fälten och skickar användarinformationen till BookingForm
 	const handleConfirmBooking = async () => {
-		// Validering av formuläret innan bokningen skapas
 		if (validFields()) {
 			onSubmit({ name, lastname, email, phone, gdprApproved });
 			onConfirm();
@@ -35,7 +35,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ onSubmit, onConfirm }) => {
 		}
 	};
 
-	//Renderar formulär för användarens information
+	//Renderar formulär för inmatning av användarinformation
 	return (
 		<div className="customerInfo">
 			<label>Förnamn: </label>
@@ -76,14 +76,14 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ onSubmit, onConfirm }) => {
 						onChange={() => setGdprApproved(!gdprApproved)}
 						required
 					/>
-					Jag samtycker enligt GDPR
+					Jag samtycker till GDPR
 				</label>
 			</div>
 			<button
 				onClick={handleConfirmBooking}
 				disabled={!name || !lastname || !email || !phone || !gdprApproved}
 			>
-				Bekräfta bokning
+				Bekräfta bokningen
 			</button>
 			{errorMessage && <p>{errorMessage}</p>}
 		</div>
