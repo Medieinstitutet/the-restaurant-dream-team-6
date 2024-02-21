@@ -5,6 +5,7 @@ import Confirmation from "./Confirmation";
 import axios from "axios";
 import { restaurantId } from "../services/api";
 import "../styles/_bookingform.scss";
+import { useEffect } from "react";
 
 //interface för bokningsdata
 interface BookingInfo {
@@ -58,6 +59,10 @@ const BookingForm: React.FC = () => {
 		}));
 		setStep(3);
 	};
+
+	useEffect(() => {
+		handleConfirmation();
+	}, [bookingInfo.customer])
 
 	const handleConfirmation = async () => {
 		setLoading(true);
