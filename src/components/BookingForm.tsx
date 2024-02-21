@@ -36,21 +36,19 @@ const BookingForm: React.FC = () => {
 	const [loading, setLoading] = useState(false);
 	const [isBookingConfirmed, setIsBookingConfirmed] = useState(false);
 
-	//Funktion som hanterar steg  1 formuläret - kolla tillgängligheten
+	//Steg  1 - kolla tillgängligheten
 	const handleStep1Submit = (data: { date: string; time: string; numberOfGuests: number }) => {
 		setBookingInfo((prevData) => ({ ...prevData, ...data }));
 		setStep(2);
 	};
 
-	//Funktioner som hanterar steg 2 formuläret - customer info
+	//Steg 2 formulär för användarens data
 	const handleStep2Submit = (customerData: { name: string; lastname: string; email: string; phone: string }) => {
-		// validera användarens information innan bokningen skapas
+		// validera användarens data innan bokningen skapas
 		if (!customerData.name || !customerData.lastname || !customerData.email || !customerData.phone) {
 			setErrorMessage("Samtliga fält är obligatoriska och måste vara korrekt ifyllda.");
 			return;
 		}
-
-		//lägg ihop användarens information med bokningsinformationen
 		setBookingInfo((prevData) => ({
 			...prevData,
 			customer: {
@@ -61,10 +59,10 @@ const BookingForm: React.FC = () => {
 		setStep(3);
 	};
 
-	//Funktion som hanterar bokningsbekräftelsen
 	const handleConfirmation = async () => {
 		setLoading(true);
 		try {
+			// När all information är samlad, gör POST-anropet
 			await axios.post("https://school-restaurant-api.azurewebsites.net/booking/create", {
 				restaurantId,
 				date: bookingInfo.date,
@@ -73,18 +71,18 @@ const BookingForm: React.FC = () => {
 				customer: bookingInfo.customer,
 			});
 
-			// om bokningen lyckas, gå vidare till bokningsbekräftelsen
 			setIsBookingConfirmed(true);
 			setStep(3);
 		} catch (error) {
 			console.error("Fel vid skapandet av bokning:", error);
-			setErrorMessage("Något gick fel vid bokning. Försök  igen senare eller ring oss för att få hjälp.");
+			setErrorMessage("Något gick fel vid bokning. Försök   igen senare eller ring oss för att få hjälp.");
 		} finally {
 			setLoading(false);
 		}
 	};
 
 	//Rendera varje steg i bokningen
+
 	return (
 		<div className="bookingForm">
 			{errorMessage && <p>{errorMessage}</p>}
