@@ -1,0 +1,27 @@
+.customerInfo {
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.customerInfo button {
+	margin-top: 1rem;
+	padding: 0.5rem;
+}
+
+.customerInfo input {
+	color: antiquewhite;
+	font-family: "Old Standard TT", serif;
+	font-size: 15px;
+	border-radius: 5px;
+	background-color: transparent;
+	border: 1px solid antiquewhite;
+	padding: 13px;
+	margin-bottom: 10px;
+	width: 20rem;
+}
+
+.gdpr {
+	margin-top: 1rem;
+}

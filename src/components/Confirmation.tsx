@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/_confirmation.scss";
 
 //interface för props till bokningsbekräftelse
 interface ConfirmationProps {
@@ -17,7 +18,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({ customerData }) => {
 
 	//Renderar bokningsbekräftelsen till användaren
 	return (
-		<div>
+		<div className="confirmation">
 			<p>
 				Tack för din bokning, {customerData.name}! Välkommen till bords kl. {customerData.time}, den {formattedDate}.
 			</p>

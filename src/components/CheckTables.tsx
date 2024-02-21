@@ -5,6 +5,7 @@ import { sv } from "date-fns/locale/sv";
 import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import { restaurantId } from "../services/api";
+import "../styles/_checktables.scss";
 
 registerLocale("sv", sv);
 
@@ -87,19 +88,24 @@ const CheckTables: React.FC<CheckTablesProps> = ({ onSubmit }) => {
 					{errorMessage && <p>{errorMessage}</p>}
 					{availableTimes.length > 0 ? (
 						<>
-							<p>Tillgängliga tider:</p>
-							{availableTimes.map((time, index) => (
-								<div key={index}>
-									<input
-										type="radio"
-										id={`time-${index}`}
-										name="time"
-										value={time}
-										onChange={() => setTime(time)}
-									/>
-									<label htmlFor={`time-${index}`}>{time}</label>
-								</div>
-							))}
+							<div className="availableTimes">
+								<p>Tillgängliga tider:</p>
+								{availableTimes.map((time, index) => (
+									<div
+										className="radios"
+										key={index}
+									>
+										<input
+											type="radio"
+											id={`time-${index}`}
+											name="time"
+											value={time}
+											onChange={() => setTime(time)}
+										/>
+										<label htmlFor={`time-${index}`}>{time}</label>
+									</div>
+								))}
+							</div>
 							<button onClick={() => onSubmit({ date: formattedDate, time, numberOfGuests })}>Gå vidare</button>
 						</>
 					) : (

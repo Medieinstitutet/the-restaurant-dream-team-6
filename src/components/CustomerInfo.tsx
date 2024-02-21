@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BookingInfo } from "../types";
+import "../styles/_customerinfo.scss";
 
 //interface props för användarens information
 interface CustomerInfoProps {
@@ -36,7 +37,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ onSubmit, onConfirm }) => {
 
 	//Renderar formulär för användarens information
 	return (
-		<div className="booking">
+		<div className="customerInfo">
 			<label>Förnamn: </label>
 			<input
 				type="text"
@@ -69,6 +70,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ onSubmit, onConfirm }) => {
 			/>
 			<label>
 				<input
+					className="gdpr"
 					type="checkbox"
 					checked={gdprApproved}
 					onChange={() => setGdprApproved(!gdprApproved)}
