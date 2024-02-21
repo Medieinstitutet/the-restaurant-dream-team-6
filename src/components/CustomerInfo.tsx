@@ -68,16 +68,17 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ onSubmit, onConfirm }) => {
 				placeholder="070-123 45 67"
 				required
 			/>
-			<label>
-				<input
-					className="gdpr"
-					type="checkbox"
-					checked={gdprApproved}
-					onChange={() => setGdprApproved(!gdprApproved)}
-					required
-				/>
-				Jag samtycker enligt GDPR
-			</label>
+			<div className="gdpr">
+				<label>
+					<input
+						type="checkbox"
+						checked={gdprApproved}
+						onChange={() => setGdprApproved(!gdprApproved)}
+						required
+					/>
+					Jag samtycker enligt GDPR
+				</label>
+			</div>
 			<button
 				onClick={handleConfirmBooking}
 				disabled={!name || !lastname || !email || !phone || !gdprApproved}
